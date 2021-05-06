@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.myvocabook.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_words"
+        android:name="com.example.myvocabook.ui.words.WordsFragment"
+        android:label="@string/title_words"
+        tools:layout="@layout/fragment_words" />
+
+    <fragment
+        android:id="@+id/navigation_todaywords"
+        android:name="com.example.myvocabook.ui.todaywords.TodaywordsFragment"
+        android:label="@string/title_todaywords"
+        tools:layout="@layout/fragment_todaywords" />
+    <fragment
+        android:id="@+id/navigation_bookmark"
+        android:name="com.example.myvocabook.ui.bookmark.BookmarkFragment"
+        android:label="@string/title_bookmark"
+        tools:layout="@layout/fragment_bookmark" />
+
+    <fragment
+        android:id="@+id/navigation_voca"
+        android:name="com.example.myvocabook.ui.voca.VocaFragment"
+        android:label="@string/title_voca"
+        tools:layout="@layout/fragment_voca" />
+</navigation>
