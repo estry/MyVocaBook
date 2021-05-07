@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 import java.io.InputStream
 
 class MainActivity : AppCompatActivity() {
-
+    // val wordsViewModel : WordsViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

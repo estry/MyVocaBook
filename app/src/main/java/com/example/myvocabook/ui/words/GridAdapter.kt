@@ -1,4 +1,4 @@
-package com.example.myvocabook
+package com.example.myvocabook.ui.words
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myvocabook.R
 
 class GridAdapter(
     var context: Context?, var days: ArrayList<String>
@@ -17,9 +18,8 @@ class GridAdapter(
     var itemClickListener: OnItemClickListener? = null
 
     inner class GridViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
+        val textView = itemView.findViewById<TextView>(R.id.textView)
         init {
-            val textView = itemView.findViewById<TextView>(R.id.textView)
             textView.setOnClickListener {
                 itemClickListener?.onItemClick(this, it, days[adapterPosition], adapterPosition)
             }

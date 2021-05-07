@@ -6,14 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myvocabook.AppDataBase
-import com.example.myvocabook.GridAdapter
 import com.example.myvocabook.R
 import com.example.myvocabook.ui.voca.VocaFragment
 import kotlinx.coroutines.CoroutineScope
@@ -28,7 +26,7 @@ class WordsFragment : Fragment() {
         "day11", "day12", "day13", "day14", "day15", "day16", "day17", "day18", "day19", "day20",
         "day21", "day22", "day23", "day24", "day25", "day26", "day27", "day28", "day29", "day30"*/
     )
-    private lateinit var wordsViewModel: WordsViewModel
+    val wordsViewModel : WordsViewModel by viewModels()
     lateinit var adapter: GridAdapter
 
     override fun onCreateView(
@@ -36,14 +34,7 @@ class WordsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        wordsViewModel =
-            ViewModelProvider(this).get(WordsViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_words, container, false)
-
-        wordsViewModel.text.observe(viewLifecycleOwner, Observer {
-
-        })
-        return root
+        return inflater.inflate(R.layout.fragment_words, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -66,7 +57,13 @@ class WordsFragment : Fragment() {
                 data: String,
                 position: Int
             ) {
-                //Toast.makeText(context, "hi", Toast.LENGTH_SHORT).show()
+                var day = adapter.days[position]
+                // Log.d("click_test", "$day")
+                wordsViewModel.setLiveData(day)
+                val bundle = Bundle()
+                bundle.putString("day", day)
+
+                VocaFragment().arguments = bundle
                 val fragment = childFragmentManager.beginTransaction()
                 fragment.addToBackStack(null)
                 val vocaFragment = VocaFragment()

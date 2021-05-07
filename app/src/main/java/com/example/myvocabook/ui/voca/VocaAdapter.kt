@@ -47,7 +47,7 @@ class VocaAdapter(var context: Context?, var vocas: ArrayList<VocaData>) :
     override fun onBindViewHolder(holder: VocaViewHolder, position: Int) {
         holder.wordView.text = vocas[position].word
         holder.meanView.text = vocas[position].meaning
-        holder.meanView.textSize = 10F;
+        holder.meanView.textSize = 12F;
         if (vocas[position].isOpen) {
             //holder.meanView.visibility = View.VISIBLE
             holder.meanLayout.visibility = View.VISIBLE
