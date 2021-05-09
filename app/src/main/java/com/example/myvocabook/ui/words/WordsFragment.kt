@@ -57,7 +57,7 @@ class WordsFragment : Fragment() {
                 data: String,
                 position: Int
             ) {
-                var day = adapter.days[position]
+                val day = adapter.days[position]
                 // Log.d("click_test", "$day")
                 wordsViewModel.setLiveData(day)
                 val bundle = Bundle()
@@ -75,7 +75,7 @@ class WordsFragment : Fragment() {
         CoroutineScope(Dispatchers.IO).launch {
             adapter.days.clear()
             try {
-                var output = AppDataBase.getInstance(requireContext())!!
+                val output = AppDataBase.getInstance(requireContext())
                     .vocabularyDao()
                     .getDay()
                 for (voca in output) {

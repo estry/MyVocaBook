@@ -28,9 +28,4 @@
         android:label="@string/title_bookmark"
         tools:layout="@layout/fragment_bookmark" />
 
-    <fragment
-        android:id="@+id/navigation_voca"
-        android:name="com.example.myvocabook.ui.voca.VocaFragment"
-        android:label="@string/title_voca"
-        tools:layout="@layout/fragment_voca" />
 </navigation>

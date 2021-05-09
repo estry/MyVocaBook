@@ -6,7 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myvocabook.AppDataBase
 import com.example.myvocabook.R
+import com.example.myvocabook.Vocabulary
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class VocaAdapter(var context: Context?, var vocas: ArrayList<VocaData>) :
     RecyclerView.Adapter<VocaAdapter.VocaViewHolder>() {
@@ -19,10 +24,10 @@ class VocaAdapter(var context: Context?, var vocas: ArrayList<VocaData>) :
 
 
     inner class VocaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val wordView: TextView = itemView.findViewById<TextView>(R.id.wordText)
-        val meanView: TextView = itemView.findViewById<TextView>(R.id.meanView)
+        val wordView: TextView = itemView.findViewById(R.id.wordText)
+        val meanView: TextView = itemView.findViewById(R.id.meanView)
         val bookmark: ImageView = itemView.findViewById(R.id.markImg)
-        val exampleBtn: Button = itemView.findViewById<Button>(R.id.exBtn)
+        val exampleBtn: Button = itemView.findViewById(R.id.exBtn)
         val meanLayout: LinearLayout = itemView.findViewById(R.id.meanLinearLayout)
 
         init {
@@ -30,7 +35,36 @@ class VocaAdapter(var context: Context?, var vocas: ArrayList<VocaData>) :
                 itemClickListener?.onItemClick(this, it, vocas[adapterPosition], adapterPosition)
             }
             bookmark.setOnClickListener {
-                Toast.makeText(context, "add to bookmark", Toast.LENGTH_SHORT).show()
+                if (!vocas[adapterPosition].isBookmark!!) {
+                    Toast.makeText(context, "add to bookmark", Toast.LENGTH_SHORT).show()
+                    vocas[adapterPosition].isBookmark = true
+                    bookmark.setImageResource(R.drawable.ic_baseline_star_24)
+                    updateBookmark(adapterPosition)
+                } else if (vocas[adapterPosition].isBookmark!!) {
+                    Toast.makeText(context, "delete from bookmark", Toast.LENGTH_SHORT).show()
+                    vocas[adapterPosition].isBookmark = false
+                    bookmark.setImageResource(R.drawable.ic_baseline_star_border_24)
+                    updateBookmark(adapterPosition)
+                }
+            }
+
+        }
+    }
+
+    fun updateBookmark(position: Int) {
+        CoroutineScope(Dispatchers.IO).launch {
+            context?.let {
+                AppDataBase.getInstance(it)
+                    .vocabularyDao()
+                    .updateBookmark(
+                        Vocabulary(
+                            vocas[position].index,
+                            vocas[position].day,
+                            vocas[position].word,
+                            vocas[position].meaning,
+                            vocas[position].isBookmark
+                        )
+                    )
             }
         }
     }
@@ -45,15 +79,24 @@ class VocaAdapter(var context: Context?, var vocas: ArrayList<VocaData>) :
     }
 
     override fun onBindViewHolder(holder: VocaViewHolder, position: Int) {
+        /*if (vocas.size == 0) {
+            for(i in 0..30)
+                vocas.add(VocaData(0L, "day0", "hello", "안녕", false))
+        }*/
+
         holder.wordView.text = vocas[position].word
         holder.meanView.text = vocas[position].meaning
-        holder.meanView.textSize = 12F;
+        holder.meanView.textSize = 12F
         if (vocas[position].isOpen) {
-            //holder.meanView.visibility = View.VISIBLE
             holder.meanLayout.visibility = View.VISIBLE
         } else {
-            //holder.meanView.visibility = View.GONE
             holder.meanLayout.visibility = View.GONE
         }
+        if (vocas[position].isBookmark!!) {
+            holder.bookmark.setImageResource(R.drawable.ic_baseline_star_24)
+        } else if (!vocas[position].isBookmark!!) {
+            holder.bookmark.setImageResource(R.drawable.ic_baseline_star_border_24)
+        }
+
     }
 }

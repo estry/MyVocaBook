@@ -16,6 +16,9 @@ interface VocabularyDao {
     @Query("select distinct Day from Vocabulary")
     suspend fun getDay(): List<Vocabulary>
 
+    @Query("select * from Vocabulary where IsBookmark = 1")
+    suspend fun getAllByBookmark() : List<Vocabulary>
+
     @Insert
     suspend fun insert(vocabularyTable: Vocabulary)
 

@@ -12,6 +12,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.io.File
 import java.io.InputStream
 
 class MainActivity : AppCompatActivity() {
@@ -37,22 +38,25 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
     }
 
-
-
     private fun init() {
         val assetManager: AssetManager = resources.assets
         val inputStream: InputStream = assetManager.open("voca2.txt")
         var cnt = 1L
-        /*inputStream.bufferedReader().readLines().forEach {
-            var token = it.split("::")
-            var input = Vocabulary(cnt, token[0], token[1], token[2], false)
-            cnt++
-            CoroutineScope(Dispatchers.Main).launch {
-                Log.d("file_test", token.toString())
-                AppDataBase.getInstance(applicationContext)
-                    .vocabularyDao().insert(input)
+        Log.d("dir_test",this.getDatabasePath("myvoca.db").toString())
+        val file = File(this.getDatabasePath("myvoca.db").toString())
+
+        if (!file.exists()) {
+            inputStream.bufferedReader().readLines().forEach {
+                var token = it.split("::")
+                var input = Vocabulary(cnt, token[0], token[1], token[2], false)
+                cnt++
+                CoroutineScope(Dispatchers.Main).launch {
+                    Log.d("file_test", token.toString())
+                    AppDataBase.getInstance(applicationContext)
+                        .vocabularyDao().insert(input)
+                }
             }
-        }*/
+        }
         CoroutineScope(Dispatchers.IO).launch {
             val output = AppDataBase.getInstance(applicationContext)
                 .vocabularyDao().getAll()

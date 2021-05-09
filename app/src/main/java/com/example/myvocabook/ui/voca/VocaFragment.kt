@@ -1,5 +1,6 @@
 package com.example.myvocabook.ui.voca
 
+
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,18 +12,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myvocabook.AppDataBase
 import com.example.myvocabook.R
+import com.example.myvocabook.WebFragment
+import com.example.myvocabook.WebViewModel
 import com.example.myvocabook.ui.words.WordsViewModel
 import kotlinx.coroutines.*
 import java.lang.reflect.InvocationTargetException
 import java.util.*
 
 class VocaFragment : Fragment() {
-
+    var day = "day1"
     var words: ArrayList<VocaData> = ArrayList()
     val wordsViewModel: WordsViewModel by viewModels({ requireParentFragment() })
+    val webViewModel: WebViewModel by viewModels()
     lateinit var recyclerView: RecyclerView
     lateinit var adapter: VocaAdapter
-    var day = "day1"
     lateinit var result: String
 
     override fun onCreateView(
@@ -36,9 +39,7 @@ class VocaFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
-        recyclerView = view.findViewById<RecyclerView>(R.id.vocaRecyclerView)
+        recyclerView = view.findViewById(R.id.vocaRecyclerView)
         recyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         adapter = VocaAdapter(context, words)
@@ -56,6 +57,17 @@ class VocaFragment : Fragment() {
                     holder.meanLayout.visibility = View.VISIBLE
                     data.isOpen = true
                 }
+                holder.exampleBtn.setOnClickListener {
+                    val text = holder.wordView.text.toString()
+                    Log.d("ex_test", text)
+                    webViewModel.setLiveData(text)
+
+                    val fragment = childFragmentManager.beginTransaction()
+                    fragment.addToBackStack(null)
+                    val webFragment = WebFragment()
+                    fragment.replace(R.id.framelayout1, webFragment)
+                    fragment.commit()
+                }
             }
         }
         recyclerView.adapter = adapter
@@ -69,10 +81,10 @@ class VocaFragment : Fragment() {
             delay(10L)
             adapter.vocas.clear()
             try {
-                Log.d("day_test", "$day")
-                var output = AppDataBase.getInstance(
+                Log.d("day_test", day)
+                val output = AppDataBase.getInstance(
                     requireContext()
-                )!!
+                )
                     .vocabularyDao()
                     .getWordFromDay(day)
                 for (voca in output) {
