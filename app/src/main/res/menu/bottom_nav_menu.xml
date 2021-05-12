@@ -12,9 +12,9 @@
         android:title="@string/title_words" />
 
     <item
-        android:id="@+id/navigation_todaywords"
+        android:id="@+id/navigation_quiz"
         android:icon="@drawable/ic_baseline_question_answer_24"
-        android:title="@string/title_todaywords" />
+        android:title="@string/title_quiz" />
 
     <item
         android:id="@+id/navigation_bookmark"

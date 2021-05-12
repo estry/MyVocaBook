@@ -18,10 +18,10 @@
         tools:layout="@layout/fragment_words" />
 
     <fragment
-        android:id="@+id/navigation_todaywords"
-        android:name="com.example.myvocabook.ui.todaywords.TodaywordsFragment"
-        android:label="@string/title_todaywords"
-        tools:layout="@layout/fragment_todaywords" />
+        android:id="@+id/navigation_quiz"
+        android:name="com.example.myvocabook.ui.quiz.QuizFragment"
+        android:label="@string/title_quiz"
+        tools:layout="@layout/fragment_quiz" />
     <fragment
         android:id="@+id/navigation_bookmark"
         android:name="com.example.myvocabook.ui.bookmark.BookmarkFragment"

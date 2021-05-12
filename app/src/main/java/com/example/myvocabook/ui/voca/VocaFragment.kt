@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myvocabook.AppDataBase
 import com.example.myvocabook.R
-import com.example.myvocabook.WebFragment
-import com.example.myvocabook.WebViewModel
+import com.example.myvocabook.ui.web.WebFragment
+import com.example.myvocabook.ui.web.WebViewModel
 import com.example.myvocabook.ui.words.WordsViewModel
 import kotlinx.coroutines.*
 import java.lang.reflect.InvocationTargetException

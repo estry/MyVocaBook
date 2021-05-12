@@ -3,7 +3,7 @@
     <string name="title_activity_main">MyWordBook</string>
     <string name="title_home">홈</string>
     <string name="title_words">단어장</string>
-    <string name="title_todaywords">퀴즈</string>
+    <string name="title_quiz">퀴즈</string>
     <string name="title_bookmark">나만의 단어장</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="title_voca">단어장</string>

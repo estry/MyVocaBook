@@ -1,4 +1,4 @@
-package com.example.myvocabook
+package com.example.myvocabook.ui.web
 
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +9,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.example.myvocabook.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay

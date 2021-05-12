@@ -1,4 +1,4 @@
-package com.example.myvocabook
+package com.example.myvocabook.ui.web
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
