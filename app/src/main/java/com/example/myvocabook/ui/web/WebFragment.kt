@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import com.example.myvocabook.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -16,7 +16,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class WebFragment : Fragment(){
-    val webViewModel: WebViewModel by viewModels({ requireParentFragment() })
+    val webViewModel: WebViewModel by activityViewModels()
     var word = "apple"
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

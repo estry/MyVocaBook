@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
                 )
                 cnt++
                 CoroutineScope(Dispatchers.Main).launch {
-                    //Log.d("file_test", token.toString())
+                    Log.d("file_test", token.toString())
                     AppDataBase.getInstance(applicationContext)
                         .vocabularyDao().insert(input)
                 }

@@ -1,5 +1,6 @@
 package com.example.myvocabook.ui.words
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myvocabook.R
 import com.example.myvocabook.database.AppDataBase
-import com.example.myvocabook.ui.voca.VocaFragment
+import com.example.myvocabook.ui.voca.VocaActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -53,14 +54,18 @@ class WordsFragment : Fragment() {
                 data: String,
                 position: Int
             ) {
-                val day = adapter.days[position]
+                /*val day = adapter.days[position]
                 wordsViewModel.setLiveData(day)
 
                 val fragment = childFragmentManager.beginTransaction()
                 fragment.addToBackStack(null)
                 val vocaFragment = VocaFragment()
                 fragment.replace(R.id.framelayout, vocaFragment)
-                fragment.commit()
+                fragment.commit()*/
+                val day = adapter.days[position]
+                val intent = Intent(context, VocaActivity::class.java)
+                intent.putExtra("day", day)
+                startActivity(intent)
             }
         }
         recyclerView.adapter = adapter
