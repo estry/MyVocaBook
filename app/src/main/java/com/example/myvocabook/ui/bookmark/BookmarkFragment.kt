@@ -6,11 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myvocabook.database.AppDataBase
 import com.example.myvocabook.R
+import com.example.myvocabook.database.AppDataBase
 import com.example.myvocabook.ui.voca.VocaData
 import com.example.myvocabook.ui.web.WebFragment
 import com.example.myvocabook.ui.web.WebViewModel
@@ -22,7 +22,7 @@ import java.util.*
 
 class BookmarkFragment : Fragment() {
 
-    val webViewModel: WebViewModel by viewModels()
+    val webModel: WebViewModel by activityViewModels()
     var bookmarks: ArrayList<VocaData> = ArrayList()
     lateinit var recyclerView: RecyclerView
     lateinit var adapter: BookmarkAdapter
@@ -57,7 +57,7 @@ class BookmarkFragment : Fragment() {
                 holder.exampleBtn.setOnClickListener {
                     val text = holder.wordView.text.toString()
                     Log.d("ex_test", text)
-                    webViewModel.setLiveData(text)
+                    webModel.setLiveData(text)
 
                     val fragment = childFragmentManager.beginTransaction()
                     fragment.addToBackStack(null)

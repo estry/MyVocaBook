@@ -15,8 +15,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class WebFragment : Fragment(){
+class WebFragment : Fragment() {
     val webViewModel: WebViewModel by activityViewModels()
+    val webModel: WebViewModel by activityViewModels()
     var word = "apple"
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,6 +32,9 @@ class WebFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
         CoroutineScope(Dispatchers.Main).launch {
             webViewModel.selectedWord.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+                word = it
+            })
+            webModel.selectedWord.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
                 word = it
             })
         }

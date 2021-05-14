@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myvocabook.R
 import com.example.myvocabook.database.AppDataBase
 import com.example.myvocabook.ui.voca.VocaActivity
+import com.example.myvocabook.ui.web.WebViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
