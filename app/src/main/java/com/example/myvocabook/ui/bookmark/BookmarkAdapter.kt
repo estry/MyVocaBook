@@ -9,9 +9,9 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myvocabook.AppDataBase
+import com.example.myvocabook.database.AppDataBase
 import com.example.myvocabook.R
-import com.example.myvocabook.Vocabulary
+import com.example.myvocabook.database.Vocabulary
 import com.example.myvocabook.ui.bookmark.BookmarkAdapter.BookmarkViewHolder
 import com.example.myvocabook.ui.voca.VocaData
 import kotlinx.coroutines.CoroutineScope
@@ -63,11 +63,13 @@ class BookmarkAdapter(var context: Context?, var bookmarks: ArrayList<VocaData>)
                 AppDataBase.getInstance(it)
                     .vocabularyDao()
                     .updateBookmark(
-                        Vocabulary(bookmarks[position].index,
+                        Vocabulary(
+                            bookmarks[position].index,
                             bookmarks[position].day,
                             bookmarks[position].word,
                             bookmarks[position].meaning,
-                            bookmarks[position].isBookmark)
+                            bookmarks[position].isBookmark
+                        )
                     )
             }
         }
@@ -86,10 +88,9 @@ class BookmarkAdapter(var context: Context?, var bookmarks: ArrayList<VocaData>)
         holder.wordView.text = bookmarks[position].word
         holder.meanView.text = bookmarks[position].meaning
         holder.meanView.textSize = 12F
-        if(bookmarks[position].isOpen) {
+        if (bookmarks[position].isOpen) {
             holder.meanLayout.visibility = View.VISIBLE
-        }
-        else {
+        } else {
             holder.meanLayout.visibility = View.GONE
         }
         if (bookmarks[position].isBookmark!!) {

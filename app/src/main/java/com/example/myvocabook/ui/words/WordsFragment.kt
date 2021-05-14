@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myvocabook.AppDataBase
 import com.example.myvocabook.R
+import com.example.myvocabook.database.AppDataBase
 import com.example.myvocabook.ui.voca.VocaFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -21,12 +21,8 @@ import kotlinx.coroutines.withContext
 import java.lang.reflect.InvocationTargetException
 
 class WordsFragment : Fragment() {
-    val days = arrayListOf<String>(
-        /*"day1", "day2", "day3", "day4", "day5", "day6", "day7", "day8", "day9", "day10",
-        "day11", "day12", "day13", "day14", "day15", "day16", "day17", "day18", "day19", "day20",
-        "day21", "day22", "day23", "day24", "day25", "day26", "day27", "day28", "day29", "day30"*/
-    )
-    val wordsViewModel : WordsViewModel by viewModels()
+    private val days = arrayListOf<String>()
+    val wordsViewModel: WordsViewModel by viewModels()
     lateinit var adapter: GridAdapter
 
     override fun onCreateView(
@@ -58,12 +54,8 @@ class WordsFragment : Fragment() {
                 position: Int
             ) {
                 val day = adapter.days[position]
-                // Log.d("click_test", "$day")
                 wordsViewModel.setLiveData(day)
-                val bundle = Bundle()
-                bundle.putString("day", day)
 
-                VocaFragment().arguments = bundle
                 val fragment = childFragmentManager.beginTransaction()
                 fragment.addToBackStack(null)
                 val vocaFragment = VocaFragment()

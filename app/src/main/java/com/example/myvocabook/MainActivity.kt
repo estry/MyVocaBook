@@ -8,6 +8,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.myvocabook.database.AppDataBase
+import com.example.myvocabook.database.Vocabulary
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -16,7 +18,6 @@ import java.io.File
 import java.io.InputStream
 
 class MainActivity : AppCompatActivity() {
-    // val wordsViewModel : WordsViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -39,23 +40,29 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun init() {
-        val assetManager: AssetManager = resources.assets
-        val inputStream: InputStream = assetManager.open("voca2.txt")
-        var cnt = 1L
-        Log.d("dir_test",this.getDatabasePath("myvoca.db").toString())
         val file = File(this.getDatabasePath("myvoca.db").toString())
 
         if (!file.exists()) {
+            val assetManager: AssetManager = resources.assets
+            val inputStream: InputStream = assetManager.open("voca2.txt")
+            var cnt = 1L
             inputStream.bufferedReader().readLines().forEach {
                 var token = it.split("::")
-                var input = Vocabulary(cnt, token[0], token[1], token[2], false)
+                var input = Vocabulary(
+                    cnt,
+                    token[0],
+                    token[1],
+                    token[2],
+                    false
+                )
                 cnt++
                 CoroutineScope(Dispatchers.Main).launch {
-                    Log.d("file_test", token.toString())
+                    //Log.d("file_test", token.toString())
                     AppDataBase.getInstance(applicationContext)
                         .vocabularyDao().insert(input)
                 }
             }
+            inputStream.close()
         }
         CoroutineScope(Dispatchers.IO).launch {
             val output = AppDataBase.getInstance(applicationContext)

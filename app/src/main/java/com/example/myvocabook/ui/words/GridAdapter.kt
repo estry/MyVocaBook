@@ -19,6 +19,7 @@ class GridAdapter(
 
     inner class GridViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textView = itemView.findViewById<TextView>(R.id.textView)
+
         init {
             textView.setOnClickListener {
                 itemClickListener?.onItemClick(this, it, days[adapterPosition], adapterPosition)

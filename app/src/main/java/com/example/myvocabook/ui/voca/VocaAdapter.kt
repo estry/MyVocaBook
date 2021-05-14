@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myvocabook.AppDataBase
+import com.example.myvocabook.database.AppDataBase
 import com.example.myvocabook.R
-import com.example.myvocabook.Vocabulary
+import com.example.myvocabook.database.Vocabulary
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -79,11 +79,6 @@ class VocaAdapter(var context: Context?, var vocas: ArrayList<VocaData>) :
     }
 
     override fun onBindViewHolder(holder: VocaViewHolder, position: Int) {
-        /*if (vocas.size == 0) {
-            for(i in 0..30)
-                vocas.add(VocaData(0L, "day0", "hello", "안녕", false))
-        }*/
-
         holder.wordView.text = vocas[position].word
         holder.meanView.text = vocas[position].meaning
         holder.meanView.textSize = 12F
@@ -97,6 +92,5 @@ class VocaAdapter(var context: Context?, var vocas: ArrayList<VocaData>) :
         } else if (!vocas[position].isBookmark!!) {
             holder.bookmark.setImageResource(R.drawable.ic_baseline_star_border_24)
         }
-
     }
 }

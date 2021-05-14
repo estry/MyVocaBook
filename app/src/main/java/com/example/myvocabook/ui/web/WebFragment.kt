@@ -1,7 +1,7 @@
 package com.example.myvocabook.ui.web
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class WebFragment : Fragment() {
+class WebFragment : Fragment(){
     val webViewModel: WebViewModel by viewModels({ requireParentFragment() })
     var word = "apple"
     override fun onCreateView(
@@ -26,12 +26,12 @@ class WebFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_web, container, false)
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         CoroutineScope(Dispatchers.Main).launch {
             webViewModel.selectedWord.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
                 word = it
-                Log.d("word_test",word)
             })
         }
         CoroutineScope(Dispatchers.Main).launch {

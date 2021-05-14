@@ -1,7 +1,6 @@
 package com.example.myvocabook.ui.quiz
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +10,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myvocabook.AppDataBase
 import com.example.myvocabook.R
+import com.example.myvocabook.database.AppDataBase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -60,7 +59,10 @@ class QuizFragment : Fragment() {
             }
         }
         recyclerView.adapter = adapter
-        recyclerView.smoothScrollBy(1,1, LinearInterpolator(), 50)
+        recyclerView.smoothScrollBy(1, 1, LinearInterpolator(), 50)
+        makeQuiz()
+    }
+    private fun makeQuiz(){
         CoroutineScope(Dispatchers.IO).launch {
             val output = AppDataBase.getInstance(requireContext())
                 .vocabularyDao().getAll()
@@ -71,18 +73,17 @@ class QuizFragment : Fragment() {
                 nums.add(num)
                 selectedNums.add(-1)
             }
-            val out = output[0]
-            Log.d("out_test","$out")
+
             for (i in nums) {
                 val word = output[i].word.toString()
                 val ans = ArrayList<String>()
                 val set = TreeSet<Int>()
                 val answer = output[i].meaning.toString()
                 ans.add(answer)
-                while (set.size < 3){
+                while (set.size < 3) {
                     val random = Random()
                     val num = random.nextInt(output.size)
-                    if(num == i)
+                    if (num == i)
                         continue
                     set.add(num)
                 }
@@ -90,7 +91,7 @@ class QuizFragment : Fragment() {
                     ans.add(output[j].meaning.toString())
                 }
                 ans.shuffle()
-                var idx = -1;
+                var idx = -1
                 for (t in ans) {
                     if (t == answer)
                         idx = ans.indexOf(t)

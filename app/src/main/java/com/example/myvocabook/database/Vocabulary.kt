@@ -1,4 +1,4 @@
-package com.example.myvocabook
+package com.example.myvocabook.database
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
