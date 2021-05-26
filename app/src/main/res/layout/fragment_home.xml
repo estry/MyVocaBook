@@ -8,18 +8,25 @@
     android:orientation="vertical"
     tools:context=".ui.home.HomeFragment">
 
-    <CalendarView
-        android:id="@+id/calendarView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:focusedMonthDateColor="#FFFFFF"
-        android:selectedWeekBackgroundColor="@color/purple_500"
-        android:weekNumberColor="#2196F3"
-        android:weekSeparatorLineColor="@color/teal_700" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <CalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusedMonthDateColor="#FFFFFF"
+            android:selectedWeekBackgroundColor="@color/purple_500"
+            android:weekNumberColor="#2196F3"
+            android:weekSeparatorLineColor="@color/teal_700" />
+
+    </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="281dp"
+        android:layout_height="163dp"
         android:layout_gravity="bottom">
 
         <Button
@@ -64,6 +71,16 @@
             android:textSize="20sp"
             app:layout_constraintBaseline_toBaselineOf="@+id/toeicBtn"
             app:layout_constraintStart_toEndOf="@+id/toeicBtn" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:text="201511258 남기용"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
